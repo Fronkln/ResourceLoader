@@ -1,5 +1,5 @@
 # ResourceLoader
-Load Yakuza resources better
+Load Yakuza resources at will when the player starts
 
 ## Supported
 Yakuza 5 - GMT
