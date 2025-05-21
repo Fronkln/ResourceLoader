@@ -9,7 +9,7 @@ Latest version of Shin Ryu Mod Manager
 
 ## Usage (for Modders)
 1) Ensure ResourceLoader is installed from Libraries tab in Shin Ryu Mod Manager
-2) Add `Dependencies: 62d185f2-0d10-42d0-955c-67bf5f757994;` to your mod-meta.yaml
+2) Add `Dependencies: 0e29b1f2-415a-49f7-8a6c-bae52d75b5dc;` to your mod-meta.yaml
 3) Create a file with the name `player_spawn_load_resource_list.txt` in your mod folder root.
 4) Add list of resources you want to load when the player spawns inside the file<br>
 Example:<br>
