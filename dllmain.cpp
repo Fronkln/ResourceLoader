@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "program.h"
 
+bool load = false;
 
 void Init() {
 	// Get the name of the current game
@@ -107,6 +108,17 @@ void CollectResources()
 	}
 }
 
+void LoadThread() {
+	//Really janky, but this ensures anything the game couldnt load gets loaded for sure
+	//It used to be worse, it used to load every frame, yet everything was functional
+	//So i'm experimenting with just adding 3 loading attempts instead
+	Sleep(2000);
+	LoadResources();
+	Sleep(1500);
+	LoadResources();
+	Sleep(1500);
+}
+
 void UpdateThread() 
 {
 	while (true)
@@ -115,7 +127,8 @@ void UpdateThread()
 		{
 			if (IsPlayerFighterPresent())
 			{
-				LoadResources();
+				std::thread loadThread(LoadThread);
+				loadThread.detach();
 				playerFighterExistsDoOnce = true;
 			}
 		}
@@ -180,6 +193,26 @@ void LoadResources()
 {
 	MotionManager* motionManager = GetMotionManager();
 	CFileMotionProperty* fileProperty = GetPropertyClass();
+	
+	int waitingGmt = 0;
+	int chunkSize = 32;
+
+	/*
+	int total = 0xdeadbeef;
+
+	while (true)
+	{
+		for (int i = 0; i < total; i += chunkSize) {
+			int end = std::min(i + chunkSize, total); // don't go past 48!
+
+			for (int j = i; j < end; ++j) {
+				objects[j].doSomething();
+			}
+
+			std::cout << "--- Finished a chunk! ---\n";
+		}
+	}
+	*/
 
 	for (auto& element : gmtResourceList) {
 		
